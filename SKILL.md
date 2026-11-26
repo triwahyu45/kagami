@@ -1,5 +1,5 @@
 ---
-name: kagami
+name: KAGAMI
 description: 3D Character & Cinema Rig suite combining VRoid Studio binary Protobuf/UV/BrushHair customization (.vroid/.vroidcustomitem) with Three.js film cinematography grammar (Dolly Zoom, Orbital Arc, Pedestal, Micro-Breath) and VRM 0.0 vs VRM 1.0 anatomical bone polarity & joint clamp guardrails.
 ---
 

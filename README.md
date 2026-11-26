@@ -1,4 +1,4 @@
-# kagami — 3D VRoid Character Engineering & Cinema Rig
+# KAGAMI — 3D VRoid Character Engineering & Cinema Rig
 
 AI Agent Skill for **Antigravity**, **Claude Code**, and **OpenAI Codex**. Unites VRoid Studio binary Protobuf/UV/BrushHair customization (`.vroid`/`.vroidcustomitem`) with Three.js film cinematography grammar and VRM 0.0 vs VRM 1.0 anatomical bone polarity & joint clamp guardrails.
 
@@ -10,13 +10,13 @@ Clone this skill into your agent's global or project skills directory:
 
 | Agent | Global Install Path | Project-Local Path |
 | :--- | :--- | :--- |
-| **Antigravity** | `~/.gemini/config/skills/kagami` | `.agents/skills/kagami` |
-| **Claude Code** | `~/.claude/skills/kagami` | `.claude/skills/kagami` |
-| **OpenAI Codex** | `~/.codex/skills/kagami` | `.agents/skills/kagami` |
+| **Antigravity** | `~/.gemini/config/skills/KAGAMI` | `.agents/skills/KAGAMI` |
+| **Claude Code** | `~/.claude/skills/KAGAMI` | `.claude/skills/KAGAMI` |
+| **OpenAI Codex** | `~/.codex/skills/KAGAMI` | `.agents/skills/KAGAMI` |
 
 ```bash
 # Example (Antigravity / Claude Code / Codex — pick your path):
-git clone https://github.com/triwahyu45/kagami.git ~/.claude/skills/kagami
+git clone https://github.com/triwahyu45/KAGAMI.git ~/.claude/skills/KAGAMI
 ```
 
 ---
