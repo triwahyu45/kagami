@@ -10,7 +10,7 @@ Clone this skill into your agent's global or project skills directory:
 
 | Agent | Global Install Path | Project-Local Path |
 | :--- | :--- | :--- |
-| **Antigravity** | `~/.gemini/config/skills/KAGAMI` | `.agents/skills/KAGAMI` |
+| **Antigravity** | Global Antigravity skills dir | `.agents/skills/KAGAMI` |
 | **Claude Code** | `~/.claude/skills/KAGAMI` | `.claude/skills/KAGAMI` |
 | **OpenAI Codex** | `~/.codex/skills/KAGAMI` | `.agents/skills/KAGAMI` |
 

@@ -28,3 +28,11 @@ Unites **VRoid binary/UV engineering & NINGYO v2.0 MCP automation** with **film 
 Before delivering any `.vroid` edit or Three.js VRM scene:
 1. Run multi-angle close-up screenshots (`vroid-studio` MCP `batch`/`screenshot` or `--precheck` keyframe PNGs) and inspect via `read_file`.
 2. Confirm zero inverted knees/elbows (VRM 0.0 vs 1.0 polarity), zero UV clipping, and natural head/neck bounds; fix and re-verify first.
+
+
+## Verified Lessons: Three.js VRM Short Films (Halte Hujan)
+- [Floating phone / chin-raised hands / cropped heads] -> [`lockFeetToGround` ran AFTER arm IK, shifting seated actors] -> [Run `lockFeetToGround` + `updateMatrixWorld(true)` first, then IK with targets relative to live chest/hips world positions, then phone, then camera.]
+- [Cuff/fingers covering phone screen in OTS shots] -> [Phone offset along bone-to-head dir] -> [Offset phone along its own screen normal (+Z) and drive camera from phone quaternion (`phoneFrontCam`).]
+- [AAC came out 96 kHz; piano inaudible] -> [`loudnorm` upsamples; raw PD piano ~-31 LUFS] -> [`loudnorm` BGM before ducking, `aresample=48000`, output `-ar 48000`.]
+- [Indonesian TTS mispronounced] -> [Fish Audio s2.1-pro-free] -> [Gemini Live `Zephyr` + faster_whisper check read cleaner.]
+- Always `--precheck` PNGs of every shot via read_file before full render.
