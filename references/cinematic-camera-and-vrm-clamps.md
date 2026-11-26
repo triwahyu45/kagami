@@ -21,3 +21,12 @@ When mixing VRM 1.0 (e.g. `custom_model.vrm`) and `VroidVrmExporter` VRM 0.0 mod
   - `head.x` in `[-0.36, 0.34]`, `head.y` in `[-0.65, 0.65]`, `head.z` in `[-0.28, 0.28]`
   - `neck.x` in `[-0.22, 0.22]`, `neck.y` in `[-0.35, 0.35]`
   - `chest.x` in `[-0.16, 0.16]`
+
+---
+
+## 3. Rainy-Night Grading, SpotLight Pitfall & World-Space 2-Bone Arm IK Props
+
+- **VRM 1.0 vs VRM 0.0 `MToonMaterial` Brightness**: `@pixiv/three-vrm@3.3.3` VRM 1.0 renders ~π× brighter than VRM 0.0 under PBR lights. Multiply `mat.color` (or `uniforms.litFactor.value` if `mat.color` is absent) by `0.45` for VRM 1.0 and `0.92` for VRM 0.0, tint `shadeColorFactor` with moody slate/indigo (`0x4E6288`), and keep `toneMappingExposure ~ 0.96`.
+- **`SpotLight` `castShadow` Shader Error**: On Three.js `r170` + `@pixiv/three-vrm@3.3.3` `MToonMaterial`, `SpotLight` with `castShadow = true` throws `ERROR: 'vSpotShadowCoord' : undeclared identifier`. Use `PointLight` or `DirectionalLight` for shadow-casting keys.
+- **Readable Smartphone Props + OTS Insert Shots**: Place smartphones in world space with a `CanvasTexture` screen + back triple-camera island + subtle cyan `PointLight`, cradle with `solveTwoBoneArmIK`, curl finger bones (`Proximal/Intermediate/Distal.z` + tucked `Thumb`), and lock prop position `4.6 cm` from `rightMiddleProximal` toward `headWorldPos` so fingers never poke through the screen. Frame an Over-the-Shoulder (OTS) insert (`fov 29–32`, ~0.45m away) to show hands + readable UI together.
+- **Zero-Hair-Whip Stand-Up (`springBoneManager`)**: NEVER call `engine.setState('idle')` while seated in procedural `sit_sofa` — the 1-frame `hips.y` teleport into `idle.vrma` violently whips hair/skirt springbones. Instead, keep `sit_sofa` continuous, damp `springBoneManager.joints` (`dragForce >= 0.72`, `gravityPower <= 0.055`), and smoothly interpolate `surfaceHeight` (`0.53 -> 0.95`) and `sitBlend` (`1 -> 0`) over `1.20s` with a `Math.sin(standU * Math.PI)` forward torso lean.

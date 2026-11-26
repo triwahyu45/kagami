@@ -1,6 +1,6 @@
 # VRoid Studio Binary Protobuf & Texture UV Schemas
 
-> On-demand reference module for `vroid-studio-protobuf-customizer`. Loaded when inspecting or editing `v1model/data.bin` Protobuf trees, `BrushHair` 3D geometry, float parameters, or clothing/skin UV islands.
+> On-demand reference module for `KAGAMI`. Loaded when inspecting or editing `v1model/data.bin` Protobuf trees, `BrushHair` 3D geometry, float parameters, or clothing/skin UV islands.
 
 ---
 
@@ -72,3 +72,10 @@
 - **`Bottoms#26` (`1024x1024`):** Set `Ankle Hem (Raise)` (`dfbd1f402e54cae6b859407ab50c8e7fe9245901`) = `50.0` for tailored mid-thigh shorts without sawtooth crop fringes. Upper elastic waistband spans `y=0..84` (`x=62..962`): painting `y <= 74 + 5*cos(...)` off-white with a stitched lower rim and cast shadow underneath turns high-waisted shorts into a natural untucked T-shirt overhang over the shorts.
 - **`Socks` & `Shoes`:** Pair `Body/Whole Body/Foot Size` (`0.18`) + `Outfit/Shoes/Sole (Higher)` (`16`) with `Outfit/Socks` preset **`#24 White Mid-Calf Socks`** for smooth crew volume (if using `#3 Pink Cuffed Socks`, note 3 nodes: cuff `d1c35036`, ankle mesh `1.Additional`, and calf stickers to blank).
 - **`GlassesLow` (`512x512`):** Keep `FrameThinly <= 15.0`, preserve outer hinges `(x=0..62 & 450..512, y=158..196)` at `alpha=255`, slim temples to `y=21..37`, and trim upper corners `y=114..172, x=0..46 & 466..512`.
+
+---
+
+## 5. Slider Overdrive & Post-Export GLB/VRM Hem Drape
+
+- **Slider Overdrive (>100 / Negative UI Bounds):** Float slider values written directly into `.vroid` Protobuf `Transferable` blobs above UI limits (e.g., `UnderLong = 135.0`) are preserved across official VRoid Studio `save` calls and exported faithfully into `.vrm` geometry.
+- **Disjoint Jacket Hem Mesh Pull Beyond VRoid Blendshape Ceiling:** VRoid `UnderLong` slider overdrive saturates around `Y ≈ 0.824..0.855`. When deeper hem drape is needed, deform only the disjoint clothing primitive (e.g., `Body (merged)` `primitives[4]` / `N00_007_01_Tops_01_CLOTH` which shares 0 vertices with `Body`/`Face` and holds 0 morph targets) in GLB/VRM using smooth UV-mapped cubic Hermite `-Y` drop + positive XZ radial clearance, preserving all 58 `Face` shape keys, 114 vertex groups, and 22 SpringBones.

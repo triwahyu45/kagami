@@ -1,6 +1,6 @@
 # VRoid Ultra-Close-Up Audit & Height-Locked Opacity Overlay Protocol
 
-> On-demand reference module for `vroid-studio-protobuf-customizer`. Loaded when running multi-POV inspection via `vroid-studio` MCP (`batch`, `camera`, `screenshot`) or comparing 3D VRoid renders against 2D canonical character sheets.
+> On-demand reference module for `KAGAMI`. Loaded when running multi-POV inspection via `vroid-studio` / `NINGYO` MCP (`batch`, `camera`, `screenshot`) or comparing 3D VRoid renders against 2D canonical character sheets.
 
 ---
 
@@ -49,3 +49,14 @@ To verify every garment layer independently without occlusion:
 - Never scale VRoid front/back renders by full bounding-box width against an A-pose 2D character sheet: extended 45° T-pose arms shrink torso height by ~35%.
 - Extract foreground mask by chroma distance from top-corner background (`diff > 14`), crop to vertical `[y_min .. y_max]` centered horizontally on `median(xs)` (robust to asymmetric ahoge/arms), scale VRoid and Ref strictly by **`scale = avail_h / ch`**, blend `0.5 * ref + 0.5 * vroid`, and report silhouette `IoU` + `W/H` aspect ratio.
 - For **Face Close-Up**, strip the narrow ahoge and lower torso below neck pinch (`row_w >= 0.18 * max_w` top down to `argmin(row_w)` in `[0.55H..0.92H]`) before resizing so head scale matches 1:1.
+
+---
+
+## 5. NINGYO v2.0 (38 Tools) Automation & Verified Pitfalls
+
+- **Direct Headless Texture & Expression Automation**: Use `texture_list` -> `texture_export_layer` / `texture_import_layer` to swap raster PNG layers headlessly (zero OS dialogs, undoable), and `expressions_list` / `expression_set` to drive all 14 Expression Editor categories; pair with `photobooth`, `look_get`/`look_set`, `accessory_list`/`add`/`remove`/`params`, `undo`/`redo`, and `body_metrics`.
+- **IL2CPP Collection Enumeration & Streamable HTTP `Mcp-Session-Id`**: `Il2CppSystem.Collections.Generic.IReadOnlyCollection<T>` does not implement managed `System.Collections.IEnumerable` or `get_Item(int)`, and `/mcp` rejects `tools/list` or `tools/call` without the `Mcp-Session-Id` header from `initialize`. Enumerate via `Il2CppObjectBase.TryCast<Il2CppSystem.Collections.IEnumerable>()` (plus `FaceEditor.InitExpression` lazy fallback) and persist `Mcp-Session-Id` across HTTP calls.
+- **Duplicate Dark Silhouette After `photobooth(exit)` / `export_vrm`**: Calling only `DeselectExportMode()` + `ScreenNavigation.Pop()` leaves `_umaGameObject` / `MeshReduction._referenceCache` active behind the character. Always call `OnLeaveExportEditMode()`, `MeshReduction.ClearReference()`, `ClearReference()`, `ClearPreviewAvatar()`, and `OnEditorWindowModeLeave()` on exit.
+- **Visible Window Launch (Avoid `MainWindowHandle = 0`)**: Launching `VRoidStudio.exe` directly from PowerShell/Python can run inside a hidden/sandboxed window station (`MainWindowHandle = 0`) and exit with the Job Object. Always launch/restart via `"C:\Program Files (x86)\Steam\steam.exe" -applaunch 1486350` (or `ningyo_launcher.py launch`), keep `[Logging.Disk] Enabled = true` in `BepInEx\config\BepInEx.cfg`, and delete `BepInEx\cache\chainloader_typeloader.dat` when adding/updating plugins.
+- **Camera Frozen at `{0, 0.8, 6}` & Export UI Chrome**: `BackToModelSelect` (`main_menu`) unbinds `VRoidStudioAvatarCameraViewController`, and `export_vrm` leaves Export UI chrome over screenshots if called first. Call `exit` and relaunch visibly via `steam.exe -applaunch 1486350`, start screenshot `batch` with `enter(section="Face", category="Mouth")`, and ALWAYS capture Edit-Mode screenshots BEFORE calling `export_vrm`.
+- **Stale `.vrm` Audit Trap in Blender**: Always verify `asset.generator` (`VRoid Studio-...`), `mtime`, and embedded `thumbnailImage` on freshly exported `.vrm` files before A-pose inspection, and pose only `J_Bip_L/R_UpperArm` downward (~30–35° around Y).

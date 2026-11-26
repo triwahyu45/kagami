@@ -5,7 +5,14 @@ description: 3D Character & Cinema Rig suite combining VRoid Studio binary Proto
 
 # Kagami — 3D Character & Cinema Rig
 
-Unites **VRoid binary/UV engineering** (`vroid-binary-forge`) with **film camera grammar and VRM anatomical bone guardrails** (`cinematic-3d-camera`) so 3D characters look custom-crafted and move naturally without inverted knees or elbows.
+Unites **VRoid binary/UV engineering & NINGYO v2.0 MCP automation** with **film camera grammar and VRM anatomical bone guardrails** so 3D characters look custom-crafted and move naturally without inverted knees or elbows.
+
+---
+
+## NINGYO v2.0 Companion MCP (38 Tools)
+
+- **Plugin Architecture**: `VroidStudioMcp.dll` + `NingyoExtensions.dll` (`127.0.0.1:17891/mcp`) adds 15 tools (`export_vrm` v2 with optimization flags, `undo`, `redo`, `body_metrics`, `look_get`/`look_set`, `accessory_list`/`add`/`remove`/`params`, `expressions_list`/`expression_set`, `texture_list`/`texture_export_layer`/`texture_import_layer`, `photobooth`) plus `CameraRebindPatch`.
+- **Visible Launch & Build**: Launch/restart VRoid visibly via `scripts/ningyo_launcher.py launch` (`steam.exe -applaunch 1486350`) so `MainWindowHandle` stays interactive; build/deploy via `NINGYO/scripts/build.ps1 -DeployToVroid` (stop `VRoidStudio` first).
 
 ---
 
