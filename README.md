@@ -24,7 +24,7 @@ git clone https://github.com/triwahyu45/KAGAMI.git ~/.claude/skills/KAGAMI
 ## Requirements & Dependencies (For Agents)
 
 - **Runtime / Tools**: **Python 3.10+** (for Protobuf/ZIP binary `.vroid` edits) and/or **Three.js** (for WebGL VRM scenes); **VRoid Studio 2.14.0** for live MCP editing
-- **MCP Servers**: Required for live VRoid Studio editing & `.vrm` export: [`ningyo`](https://github.com/triwahyu45/ningyo) (`vroid-studio` MCP at `http://127.0.0.1:17891/mcp`)
+- **MCP Servers**: Required for live VRoid Studio editing & `.vrm` export: [`ningyo`](https://github.com/triwahyu45/NINGYO) (`vroid-studio` MCP at `http://127.0.0.1:17891/mcp`)
 - **Related Skills**: None required
 - **API Keys / Secrets**: None
 
